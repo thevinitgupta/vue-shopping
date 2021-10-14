@@ -1,13 +1,13 @@
 <template>
-  <Signup/>
+  <Home/>
 </template>
 
 <script>
-import Signup from "./components/Signup";
+import Home from "./components/Home";
 export default {
   name: 'App',
   components: {
-    Signup
+    Home
   }
 }
 </script>
