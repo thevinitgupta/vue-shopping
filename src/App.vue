@@ -1,5 +1,4 @@
 <template>
-  <h1>Terra Shopping</h1>
   <Signup/>
 </template>
 

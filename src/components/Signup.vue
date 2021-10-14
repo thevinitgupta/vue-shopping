@@ -1,54 +1,95 @@
 <template>
     <div class="signup">
-        <h2>Sign Up</h2>
+        <img src="../assets/user.png" alt="user" class="user-img">
+        <h2 class="signup-head">Sign Up</h2>
         <div class="signup-body">
-            <label for="name" class="signup-label">Name</label>
-                <input type="text" name="name" class="signup-input signup-name">
+                <label for="name" class="signup-label">Name</label>
+                <input type="text" name="name" class="signup-input" v-model="name">
                 <label for="email" class="signup-label">Email</label>
-                <input type="email" name="email" class="signup-input signup-email">
-                <label for="password" class="signup-label">Password</label>
-                <input type="password" name="password" class="signup-input signup-password">
+                <input type="email" name="email" class="signup-input" v-model="email">
                 <label for="phone" class="signup-label">Phone</label>
-                <input type="tel" name="phone" class="signup-input signup-phone">
-                <button type="button" id="signup-btn">Signup &#10162;</button>
+                <input type="tel" name="phone" class="signup-input" v-model="phone">
+                <label for="password" class="signup-label">Password</label>
+                <input type="password" name="password" class="signup-input" v-model="password">
+                <button type="button" id="signup-btn" @click="signup()">Sign Up</button>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name : "Signup"
+    name : "Signup",
+    data(){
+        return {
+            name : "",
+            email : "",
+            password : "",
+            phone : ""
+        }
+    },
+    methods : {
+        async signup(){
+            const signupBody = {
+                name : this.name,
+                password : this.password,
+                email : this.email,
+                phone : this.phone
+            }
+            const res = await fetch(`http://localhost:3000/user/signup`, {
+                method : "POST",
+                headers : {
+                     'Content-Type' : 'application/json'
+                },
+                body : JSON.stringify(signupBody)
+            });
+
+            const jsonRes = await res.json();
+            if(res.status===200) {
+               this.name = "";
+                this.email = "";
+                this.password = "";
+                this.phone = ""; 
+            }
+            else {
+                alert(jsonRes.message)
+            }
+        }
+    }
 }
 </script>
 
-<style>
+<style scoped>
 .signup {
     width : 95vw;
-    max-width: 400px;
+    max-width: 450px;
     height: 80vh;
-    max-height: 600px;
-    margin: 50px auto;
+    max-height: 700px;
+    margin: 30px auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     border: 2px solid #0f0f0f;
     border-radius: 3%;
 }
+.user-img {
+    width: 90px;
+}
 .signup-head {
-    font-size: 2.5rem;
-    flex: 0.2;
+    font-size: 2rem;
+    flex: 0.14;
+    margin : 10px auto;
 }
 .signup-body {
-    flex: 0.7;
+    flex: 0.6;
     width: 85%;
 }
 .signup-label {
     display: block;
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 400;
-    margin-top: 5px;
+    margin-top: 2px;
     margin-bottom: 2px;
 }
 .signup-input {
@@ -61,10 +102,11 @@ export default {
     margin-bottom: 5px;
 }
 #signup-btn {
-    width: 70%;
+    width: 100%;
     font-size: 1.45rem;
-    padding: 2% 3%;
-    margin: 5px auto;
+    padding: 3% 3%;
+    margin: 25px auto;
+    margin-bottom: 50px;
     background-color: #068a69;
     color: #f1f1f1;
     border: none;
