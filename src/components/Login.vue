@@ -7,7 +7,7 @@
                 <input type="email" name="email" class="login-input" @input="handleEmail" v-model="email">
                 <label for="password" class="login-label">Password</label>
                 <input type="password" name="password" class="login-input" v-model="password">
-                <button type="button" id="login-btn" @click="handleLogin">Login &#10162;</button> 
+                <button type="button" id="login-btn" @click="login()">Login &#10162;</button> 
         </div>
     </div>
 </template>
@@ -24,7 +24,6 @@ export default {
     },
     methods : {
         handleEmail(){
-            console.log("Email Change")
             // eslint-disable-next-line no-useless-escape
             const re = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
             const valid =  re.test(this.email.toLowerCase());
@@ -35,8 +34,41 @@ export default {
                 this.emailError = false;
             }
         },
-        handleLogin(){
-            console.log(this.email);
+        async login(){
+            const loginBody = {
+                email : this.email,
+                password : this.password
+            }
+            const res = await fetch(`http://localhost:3000/user/login`, {
+                method : "POST",
+                headers : {
+                     'Content-Type' : 'application/json'
+                },
+                body : JSON.stringify(loginBody)
+            });
+
+            const jsonRes = await res.json();
+            if(res.status===200) {
+                console.log(jsonRes.user);
+                this.email = "";
+                this.password = "";
+                localStorage.setItem("tablt-user",JSON.stringify(jsonRes.user))
+                this.$router.push({
+                    name : "Home"
+                })
+
+            }
+            else {
+                alert(jsonRes.message)
+            }
+        }
+    },
+    mounted(){
+        let user = localStorage.getItem("tablt-user");
+        if(user){
+           this.$router.push({
+                    name : "Home"
+                }) 
         }
     }
 }
