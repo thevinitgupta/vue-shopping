@@ -45,17 +45,28 @@ export default {
 
             const jsonRes = await res.json();
             if(res.status===200) {
+                console.log(jsonRes.user);
                this.name = "";
                 this.email = "";
                 this.password = "";
                 this.phone = ""; 
+                localStorage.setItem("tablt-user",JSON.stringify(jsonRes.user))
                 this.$router.push({
                     name : "Home"
                 })
+
             }
             else {
                 alert(jsonRes.message)
             }
+        }
+    },
+    mounted(){
+        let user = localStorage.getItem("tablt-user");
+        if(user){
+          this.$router.push({
+                    name : "Home"
+                })  
         }
     }
 }
