@@ -49,6 +49,9 @@ export default {
                 this.email = "";
                 this.password = "";
                 this.phone = ""; 
+                this.$router.push({
+                    name : "Home"
+                })
             }
             else {
                 alert(jsonRes.message)
