@@ -4,7 +4,7 @@
         <ul class="menu">
             <li class="menu-item"><a class="menu-link" href="/profile/profile.html">Profile</a></li>
             <li class="menu-item"><a class="menu-link" href="./placeOrder/placeOrder.html">Place Order</a></li>
-            <li class="menu-item"><a class="menu-link" href="/login/login.html">Login</a></li>
+            <li class="menu-item"><a class="menu-link" href="/login">Login</a></li>
             <li class="menu-item"><a class="menu-link" href="/signup">Signup</a></li>
         </ul>
     </nav>
