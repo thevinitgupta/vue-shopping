@@ -1,3 +1,43 @@
+<template>
+    <div class="products" v-for="product in this.productList" :key="product.id">
+        <Product/>
+    </div>
+</template>
+
+<script>
+import Product from './Product.vue';
+    export default {
+  components: { 
+      Product },
+        name : "Products",
+        data(){
+            return {
+                productList : [],
+                productLoaded : false
+            }
+        },
+        methods : {
+            async fetchProducts(){
+                const res = await fetch(`http://localhost:3000/product/`);
+                console.log(res);
+                const productJson = await res.json();
+                console.log(productJson)
+                if(res.status==200) {
+                    productJson.products.forEach((product,index)=>{
+                        this.productList.push({...product,id : index})
+                    })
+                    console.log(this.productList)
+                    this.productLoaded = true;
+                }
+            }
+        },
+        mounted(){
+            console.log("products mounted")
+            this.fetchProducts();
+        }
+    }
+</script>
+
 <style scoped>
 .products {
     width: 100%;
