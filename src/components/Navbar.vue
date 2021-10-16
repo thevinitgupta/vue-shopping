@@ -1,17 +1,22 @@
 <template>
     <nav>
-        <div class="logo">Tablt</div>
+        <div class="logo" @click="clickLogo()">Tablt</div>
         <ul class="menu">
-            <li class="menu-item"><a class="menu-link" href="/profile">Profile</a></li>
-            <li class="menu-item"><a class="menu-link" href="./placeOrder">Place Order</a></li>
-            <li class="menu-item"><a class="menu-link" href="/login">Login</a></li>
-            <li class="menu-item"><a class="menu-link" href="/signup">Signup</a></li>
+            <li class="menu-item"><router-link class="menu-link" to="/profile">Profile</router-link></li>
+            <li class="menu-item"><router-link class="menu-link" to="/placeOrder">Place Order</router-link></li>
+            <li class="menu-item"><router-link class="menu-link" to="/login">Login</router-link></li>
+            <li class="menu-item"><router-link class="menu-link" to="/signup">Signup</router-link></li>
         </ul>
     </nav>
 </template>
 <script>
 export default {
-    name : "Navbar"
+    name : "Navbar",
+    methods:{
+        clickLogo(){
+            window.location = "/";
+        }
+    }
 }
 </script>
 

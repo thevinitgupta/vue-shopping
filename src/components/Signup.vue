@@ -13,6 +13,7 @@
                 <input type="password" name="password" class="signup-input" v-model="password">
                 <button type="button" id="signup-btn" @click="signup()">Sign Up</button>
         </div>
+        <div class="login-redirect">Already Registered? <router-link class="login-link" to="login">Login Here</router-link></div>
     </div>
 </template>
 
@@ -128,5 +129,15 @@ export default {
 }
 #signup-btn:hover{
     cursor: pointer;
+}
+.login-redirect {
+    color : #1c2422ca;
+    margin-bottom: 10px;
+    font-size: 1.10rem;
+}
+.login-link {
+    text-decoration: none;
+    color: #d88e19;
+    font-weight: 600;
 }
 </style>

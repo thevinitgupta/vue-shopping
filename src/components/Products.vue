@@ -21,7 +21,7 @@ import Product from './Product.vue';
         },
         methods : {
             async fetchProducts(){
-                const res = await fetch(`http://localhost:3000/products/`);
+                const res = await fetch(`http://localhost:3000/product/`);
                 console.log(res);
                 if(res.status==200) {
                     const productJson = await res.json();
