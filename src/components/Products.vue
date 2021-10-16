@@ -1,9 +1,7 @@
 <template>
-    <div v-if="productFetchError" class="product-error">
-        <h2 class="products-not-found">Failed to Fetch Data! Please refresh or try again later.</h2>
-    </div>
-    <div v-else class="products">
-        <Product v-for="product in this.productList" :key="product._id" :product="product"/>
+    <div class="products">
+        <h2 v-if="productFetchError" class="products-not-found">Failed to Fetch Data! Please refresh or try again later.</h2>
+        <Product v-else v-for="product in this.productList" :key="product._id" :product="product"/>
     </div>
     
 </template>
@@ -23,7 +21,7 @@ import Product from './Product.vue';
         },
         methods : {
             async fetchProducts(){
-                const res = await fetch(`http://localhost:3000/product/`);
+                const res = await fetch(`http://localhost:3000/products/`);
                 console.log(res);
                 if(res.status==200) {
                     const productJson = await res.json();
@@ -54,5 +52,34 @@ import Product from './Product.vue';
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+}
+
+.products-not-found{
+    font-size : 2rem;
+    font-family: monospace;
+    text-align: center;
+    padding : 4% 7%;
+    background-color: #c0320f;
+    color: #fff;
+    width: 87%;
+    animation: flash 1s ease-in-out forwards infinite alternate;
+}
+@keyframes flash{
+    0%{
+        background-color: #c0320f;
+        color: #fff;
+    }
+    25%{
+        color: #c0320f;
+        background-color: #fff;
+    }
+    50%{
+        background-color: #c0320f;
+        color: #fff;
+    }
+    100%{
+        color: #c0320f;
+        background-color: #fff;
+    }
 }
 </style>
