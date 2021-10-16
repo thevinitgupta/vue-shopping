@@ -1,6 +1,9 @@
 <template>
-    <div class="products" v-for="product in this.productList" :key="product.id">
-        <Product/>
+    <div v-if="productFetchError" class="product-error">
+        <h2 class="products-not-found">Failed to Fetch Data! Please refresh or try again later.</h2>
+    </div>
+    <div v-else class="products" v-for="product in this.productList" :key="product._id">
+        <Product :product="product"/>
     </div>
 </template>
 
@@ -13,21 +16,27 @@ import Product from './Product.vue';
         data(){
             return {
                 productList : [],
-                productLoaded : false
+                productLoaded : false,
+                productFetchError : false
             }
         },
         methods : {
             async fetchProducts(){
-                const res = await fetch(`http://localhost:3000/product/`);
+                const res = await fetch(`http://localhost:3000/products /`);
                 console.log(res);
-                const productJson = await res.json();
-                console.log(productJson)
                 if(res.status==200) {
-                    productJson.products.forEach((product,index)=>{
-                        this.productList.push({...product,id : index})
+                    const productJson = await res.json();
+                    console.log(productJson)
+                    productJson.products.forEach((product)=>{
+                        this.productList.push(product)
                     })
                     console.log(this.productList)
                     this.productLoaded = true;
+                }
+                else {
+                    this.productLoaded = false;
+                    this.productFetchError = true;
+
                 }
             }
         },
