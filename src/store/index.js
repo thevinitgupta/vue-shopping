@@ -26,8 +26,8 @@ export default createStore({
         updateUser(context,payload){
            context.commit('addUser',payload);
         },
-        removeUser(context,payload){
-            context.commit("deleteUser",payload);
+        removeUser(context){
+            context.commit("deleteUser");
         },
         addNewCartItem(context,payload){
             context.commit("addCartItem",payload);

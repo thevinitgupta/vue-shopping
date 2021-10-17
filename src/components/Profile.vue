@@ -1,5 +1,5 @@
 <template>
-    <div class="logout-btn">
+    <div @click="logout()" class="logout-btn">
         Logout
     </div>
     <div class="container">
@@ -8,10 +8,10 @@
             <div class="profile-details">
                 <div class="profile-details-left">
                     <div class="profile-img"><img src="../assets/batman.png" id="profile-image" alt="profile"></div>
-                    <div class="profile-name">Vinit Gupta</div>
+                    <div class="profile-name">{{user.name}}</div>
                 </div>
                 <div class="profile-details-right">
-                    <div class="profile-data">Email : thevinitgupta@gmail.com <br> Phone : +918389073221 </div>
+                    <div class="profile-data">Email : {{user.email}} <br> Phone : {{user.phone}} </div>
                 </div>
                 
             </div>
@@ -34,7 +34,45 @@ export default {
         Navbar
     },
     data(){
-        
+        return {
+            user : {},
+            orders : []
+        }
+    },
+    methods : {
+        logout(){
+            this.$store.dispatch("removeUser");
+            this.$router.push({
+                name : "Home"
+            })
+        },
+        populateData(){
+
+        }
+    },
+    mounted(){
+        let user = this.$store.getters.user;
+        let emptyUser = true;
+        for(let prop in user){
+            if(prop)
+            emptyUser = false;
+            break;
+        }
+        if(emptyUser){
+            const redirect = confirm("Not Logged in. Redirect to Login Page?");
+            if(redirect) {
+                this.$router.push({
+                    name : "Login"
+                })
+            } 
+            else {
+                this.$router.push({
+                    name : "Home"
+                })
+            }
+        }
+        this.user = user;
+        console.log(this.user)
     }
 }
 </script>
