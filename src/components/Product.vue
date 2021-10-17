@@ -2,7 +2,7 @@
     <div class="product">
         <div class="product-head">
         <div class="product-head-name">{{product.name}}</div>
-        <div class="product-add-item">Add To Cart</div>
+        <div class="product-add-item" @click="addItemToCart">Add To Cart</div>
         </div>
         <div class="product-info">
             <div class="product-info-cost">&#8377;{{product.cost}}</div>
@@ -16,6 +16,11 @@ export default {
     name : "Product",
     props : {
         product : Object
+    },
+    methods : {
+        addItemToCart(){
+            this.$store.dispatch("addNewCartItem",this.product);
+        }
     }
 }
 </script>

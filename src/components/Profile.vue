@@ -17,10 +17,8 @@
             </div>
             
             <div class="profile-orders">
-                <button class="view-orders">View Orders <span od="order-arrow">&#10550;</span></button>
-                <div class="profile-orders-list">
-
-                </div>
+                <button @click="toggleOrdersList" class="view-orders">View Orders <span od="order-arrow">&#10550;</span></button>
+                <Orders v-if="showOrders" :orders="this.orders"/>
             </div>
         </div>
     </div>
@@ -28,15 +26,18 @@
 
 <script>
 import Navbar from "./Navbar.vue";
+import Orders from "./Orders.vue";
 export default {
     name : "Profile",
     components : {
-        Navbar
+        Navbar,
+        Orders
     },
     data(){
         return {
             user : {},
-            orders : []
+            orders : [],
+            showOrders : false
         }
     },
     methods : {
@@ -46,8 +47,8 @@ export default {
                 name : "Home"
             })
         },
-        populateData(){
-
+        toggleOrdersList(){
+            this.showOrders = !this.showOrders;
         }
     },
     mounted(){
@@ -72,6 +73,7 @@ export default {
             }
         }
         this.user = user;
+        this.orders = user.ordersList;
         console.log(this.user)
     }
 }
@@ -140,37 +142,6 @@ export default {
     width: 100%;
     text-align: center;
     color: rgb(185, 51, 27);
-}
-.profile-orders-list{
-    width: 100%;
-    margin-top: 25px;
-}
-.order-item{
-    width: 100%;
-    min-height: 15vh;
-    border-bottom: 2px solid #585858a9;
-    margin-bottom: 15px;
-}
-.order-item-top{
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #161616;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-.order-item-mid{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 3%;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-.order-item-total-cost{
-    width: 25%;
-    color: #069196;
-    font-size: 1.2rem;
-    padding: 7px 0;
-    border: none;
-    border-radius: 2px;
 }
 .logout-btn {
     position: fixed;

@@ -3,7 +3,7 @@
         <div class="logo" @click="clickLogo()">Tablt</div>
         <ul class="menu">
             <li class="menu-item"><router-link class="menu-link" to="/profile">Profile</router-link></li>
-            <li class="menu-item"><router-link class="menu-link" to="/placeOrder">Place Order</router-link></li>
+            <li class="menu-item"><router-link class="menu-link" to="/cart">Cart</router-link></li>
             <li class="menu-item"><router-link class="menu-link" to="/login">Login</router-link></li>
             <li class="menu-item"><router-link class="menu-link" to="/signup">Signup</router-link></li>
         </ul>

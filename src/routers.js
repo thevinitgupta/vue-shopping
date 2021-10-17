@@ -2,6 +2,7 @@ import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
+import Cart from "./components/Cart";
 import { createRouter,createWebHistory } from "vue-router";
 
 const routes = [
@@ -24,6 +25,11 @@ const routes = [
         name : "Profile",
         component : Profile,
         path : "/profile"
+    },
+    {
+        name : "Cart",
+        component : Cart,
+        path : "/cart"
     }
 ];
 
