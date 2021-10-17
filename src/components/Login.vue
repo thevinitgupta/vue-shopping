@@ -53,7 +53,8 @@ export default {
                 console.log(jsonRes.user);
                 this.email = "";
                 this.password = "";
-                localStorage.setItem("tablt-user",JSON.stringify(jsonRes.user))
+                localStorage.setItem("tablt-user",JSON.stringify(jsonRes.user));
+                this.$store.dispatch('updateUser', jsonRes.user)
                 this.$router.push({
                     name : "Home"
                 })
@@ -65,8 +66,14 @@ export default {
         }
     },
     mounted(){
-        let user = localStorage.getItem("tablt-user");
-        if(user){
+        let user = this.$store.getters.user;
+        let emptyUser = true;
+        for(let prop in user){
+            if(prop)
+            emptyUser = false;
+            break;
+        }
+        if(!emptyUser){
            this.$router.push({
                     name : "Home"
                 }) 

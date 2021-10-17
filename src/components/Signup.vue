@@ -63,11 +63,17 @@ export default {
         }
     },
     mounted(){
-        let user = localStorage.getItem("tablt-user");
-        if(user){
-          this.$router.push({
+        let user = this.$store.getters.user;
+        let emptyUser = true;
+        for(let prop in user){
+            if(prop)
+            emptyUser = false;
+            break;
+        }
+        if(!emptyUser){
+           this.$router.push({
                     name : "Home"
-                })  
+                }) 
         }
     }
 }
