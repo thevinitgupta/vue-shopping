@@ -53,7 +53,6 @@ export default {
                 console.log(jsonRes.user);
                 this.email = "";
                 this.password = "";
-                localStorage.setItem("tablt-user",JSON.stringify(jsonRes.user));
                 this.$store.dispatch('updateUser', jsonRes.user)
                 this.$router.push({
                     name : "Home"
