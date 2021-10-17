@@ -46,7 +46,6 @@ export default {
 
             const jsonRes = await res.json();
             if(res.status===200) {
-                console.log(jsonRes.user);
                this.name = "";
                 this.email = "";
                 this.password = "";
