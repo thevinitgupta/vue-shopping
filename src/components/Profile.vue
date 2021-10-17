@@ -18,7 +18,7 @@
             
             <div class="profile-orders">
                 <button @click="toggleOrdersList" class="view-orders">View Orders <span od="order-arrow">&#10550;</span></button>
-                <Orders v-if="showOrders" :orders="this.orders"/>
+                <Orders v-if="showOrders" :userId="user._id"/>
             </div>
         </div>
     </div>

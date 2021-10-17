@@ -6,9 +6,9 @@
             <div class="cart-top">
                 <div class="cart-item-name">{{item.name}}</div>
                 <div class="cart-item-counter">
-                    <div class="count-btn decrease-count">-</div>
-                    <div class="cart-item-count">1</div>
-                    <div class="count-btn increase-count">+</div>
+                    <div class="count-btn decrease-count" @click="decreaseItemCount(item._id)">-</div>
+                    <div class="cart-item-count">{{item.quantity}} </div>
+                    <div class="count-btn increase-count" @click="increaseItemCount(item._id)">+</div>
                 </div>
             </div>
             <div class="cart-bottom">
@@ -17,7 +17,10 @@
                 </div>
             </div>
         </div>
-        <p class="total-cost"><em>Total Cost : </em><strong>&#8377; {{totalCost}}</strong> </p>
+        <div class="cart-place-order">
+            <div><em>Total Cost : </em><strong>&#8377; {{totalCost}}</strong></div>
+            <div class="checkout-button" @click="checkout">Checkout</div>
+        </div>
     </div>
 </template>
 
@@ -31,9 +34,93 @@ export default {
             cartEmpty : false
         }
     },
+    methods : {
+        increaseItemCount(_id){
+            this.items.forEach((item)=>{
+                if(item._id===_id){
+                    item.quantity += 1;
+                }
+            })
+            this.countTotalCost();
+            this.$store.dispatch('increaseItemCount', _id);
+        },
+        decreaseItemCount(_id){
+            this.items.forEach((item)=>{
+                if(item._id===_id){
+                    if(item.quantity>0) {
+                        item.quantity -= 1;
+                    }
+                }
+            });
+            this.countTotalCost();
+            this.$store.dispatch('decreaseItemCount', _id);
+        },
+        countTotalCost(){
+            this.totalCost = 0;
+            this.items.forEach((item)=>{
+                
+                this.totalCost += item.quantity * item.cost;
+            })
+        },
+        checkout(){
+            console.log(this.items);
+            let user = this.$store.getters.user;
+            let emptyUser = true;
+            for(let prop in user){
+                if(prop)
+                emptyUser = false;
+                break;
+            }
+            if(!emptyUser){
+                console.log("Logged in")
+               this.placeOrder(user); 
+            }
+            else {
+                alert("Login to Place Order!")
+            }
+        },
+        async placeOrder(user){
+            let productsList = [];
+            this.items.forEach((item)=>{
+                let obj = {
+                    id : item._id,
+                    cost : item.cost,
+                    quantity : item.quantity
+                }
+                productsList.push(obj);
+            })
+            console.log(productsList)
+            let orderData = {
+                customerId : user._id,
+                email : user.email,
+                productsList : productsList,
+                paymentType : "COD",
+                status : "in-transit",
+                totalCost : this.totalCost
+            };
+            const res = await fetch(`http://localhost:3000/order/create/`,{
+                method : 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body : JSON.stringify(orderData)
+            })
+            if(res.status===200) {
+                alert("Order Placed Successfully!");
+                this.$router.push({
+                    name : "Home"
+                });
+            }
+            else {
+                const jsonRes = await res.json();
+                alert(jsonRes.message)
+            }
+        }
+    },
     beforeMount(){
         this.$store.getters.cart.forEach((cartItem) => {
             this.totalCost += cartItem.cost;
+            cartItem.quantity = 1;
             this.items.push(cartItem);
         });
         console.log(this.items)
@@ -129,8 +216,22 @@ body {
     .count-btn:hover{
         cursor: pointer;
     }
-    .total-cost{
+    .cart-place-order{
         margin-top: 40px;
         font-size: 1.2rem;
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 3%;
+    }
+    .checkout-button{
+        flex: 0.2;
+        background-color: #06aaaf;
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        border-radius: 4px;
+        padding: 5px;
     }
 </style>

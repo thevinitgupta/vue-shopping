@@ -19,10 +19,15 @@ export default createStore({
             if(!exists)
             state.cart.push(item);
         },
-        updateItemCount(state,itemData){
+        deleteCartItem(state,_id){
+            state.cart = state.cart.filter((item) => _id!=item._id);
+        },
+        updateItemCount(state,{_id,change}){
             state.cart.forEach((item)=>{
-                if(item._id === itemData._id){
-                    item.count = itemData.count;
+                if(item._id === _id){
+                    item.count += change;
+                    if(item.count==0)
+                    this.deleteCartItem(state,_id);
                 }
             })
         }
@@ -37,8 +42,11 @@ export default createStore({
         addNewCartItem(context,payload){
             context.commit("addCartItem",payload);
         },
-        updateCartItem(context,payload){
-            context.commit("updateItemCount",payload);
+        increaseItemCount(context,payload){
+            context.commit("updateItemCount",{_id : payload,change : 1});
+        },
+        decreaseItemCount(context,payload){
+            context.commit("updateItemCount",{_id : payload,change : -1});
         }
     },
     getters :{

@@ -1,9 +1,8 @@
 <template>
     <div class="orders">
-        <div v-if="orders.length>0" class="profile-orders-list">
-            //! Orders display
-            <div v-for="(order,key) in orders" :key="key" class="order-item-top" data-id="${orderItem.id}">Order {{key+1}} - Delivered to {{order.deliveryLocation.name}}</div>
-        <div class="order-item-mid"><div class="order-item-total-cost">Total : &#8377;{{order.totalCost}}</div><div class="order-item-date">{{order.date.substring(4,15)}}</div>
+        <div v-if="ordersList.length>0" class="profile-orders-list">
+            <div v-for="(order,key) in ordersList" :key="key" class="order-item-top" data-id="${orderItem.id}">Order {{key+1}}</div>
+        <div class="order-item-mid"><div class="order-item-total-cost">Total : &#8377;0</div><div class="order-item-date">{{order.date.substring(4,15)}}</div>
             <div class="order-item-total">Total items : {{order.productsList.length}}</div>
         </div>
         </div>
@@ -19,18 +18,25 @@ export default {
     name : "Orders",
     data(){
         return {
-            
+            ordersList : []
         }
     },
-    props : {
-        orders : []
+    props : ['userId'],
+    methods :{
+        async fetchOrders(_id){
+            const res = await fetch(`http://localhost:3000/order/:userId?${_id}`,
+            {
+                method : 'GET'
+            });
+            if(res.status===200) {
+                const orderJson = await res.json();
+                console.log(orderJson);
+                this.ordersList = orderJson.orders;
+            }
+        },
     },
     mounted(){
-        this.orders.forEach(orderItem => {
-            let dateString = new Date(Number(orderItem.date));
-            const date = dateString.toString();
-            orderItem.date = date;
-        });
+        this.fetchOrders(this.userId);        
     }
 }
 </script>
