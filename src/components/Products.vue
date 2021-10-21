@@ -3,7 +3,6 @@
         <h2 v-if="productFetchError" class="products-not-found">Failed to Fetch Data! Please refresh or try again later.</h2>
         <Product v-else v-for="product in this.productList" :key="product._id" :product="product"/>
     </div>
-    
 </template>
 
 <script>
@@ -36,7 +35,6 @@ import axios from "axios";
                 else {
                     this.productLoaded = false;
                     this.productFetchError = true;
-
                 }
             }
         },

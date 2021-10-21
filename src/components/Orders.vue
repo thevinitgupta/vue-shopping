@@ -1,19 +1,25 @@
 <template>
-    <div class="orders">
-        <div v-if="ordersList.length>0" class="profile-orders-list">
-            <div v-for="(order,key) in ordersList" :key="key" class="order-item-top" data-id="${orderItem.id}">Order {{key+1}}</div>
-        <div class="order-item-mid"><div class="order-item-total-cost">Total : &#8377;0</div><div class="order-item-date">{{order.date.substring(4,15)}}</div>
-            <div class="order-item-total">Total items : {{order.productsList.length}}</div>
+    <div  v-if="ordersList.length>0" class="orders">
+        <div class= "order-item" v-for="(order,key) in ordersList" :key="key">
+            <div class="order-item-top" data-id="${orderItem.id}">
+                    Order {{key+1}}
+            </div>
+            <div class="order-item-mid">
+                    <div class="order-item-total-cost">Total : &#8377;{{order.totalCost}}</div>
+                    <div class="order-item-date">04.10.2021</div>
+                    <div class="order-item-total">Total items : {{order.productsList.length}}</div>
+            </div>            
         </div>
-        </div>
-        <div v-else class="no-orders">
+    </div>
+    <div v-else class="no-orders">
             <h3>Oops no record found! 
             </h3>
         </div>
-    </div>
 </template>
 
 <script>
+/*{{order.date.substring(4,15)}}*/
+import axios from "axios";
 export default {
     name : "Orders",
     data(){
@@ -24,12 +30,9 @@ export default {
     props : ['userId'],
     methods :{
         async fetchOrders(_id){
-            const res = await fetch(`http://localhost:3000/order/:userId?${_id}`,
-            {
-                method : 'GET'
-            });
+            const res = await axios.get(`http://localhost:3000/order/userId${_id}`);
             if(res.status===200) {
-                const orderJson = await res.json();
+                const orderJson = res.data;
                 console.log(orderJson);
                 this.ordersList = orderJson.orders;
             }
@@ -41,10 +44,11 @@ export default {
 }
 </script>
 <style scoped>
-    .profile-orders-list{
-    width: 100%;
-    margin-top: 25px;
+    .orders{
+        width: 85vw;
+        margin: 0 auto;
     }
+
     .order-item{
         width: 100%;
         min-height: 15vh;
