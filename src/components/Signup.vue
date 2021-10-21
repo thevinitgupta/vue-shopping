@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import axios from "axios"
 export default {
     name : "Signup",
     data(){
@@ -36,20 +37,15 @@ export default {
                 email : this.email,
                 phone : this.phone
             }
-            const res = await fetch(`http://localhost:3000/user/signup`, {
-                method : "POST",
-                headers : {
-                     'Content-Type' : 'application/json'
-                },
-                body : JSON.stringify(signupBody)
-            });
+            const res = await axios.post(`http://localhost:3000/user/signup`,signupBody);
 
-            const jsonRes = await res.json();
+            const jsonRes = await res.data;
             if(res.status===200) {
                this.name = "";
                 this.email = "";
                 this.password = "";
-                this.phone = ""; 
+                this.phone = "";
+                console.log(jsonRes); 
                 this.$store.dispatch('updateUser', jsonRes.user);
                 this.$router.push({
                     name : "Home"

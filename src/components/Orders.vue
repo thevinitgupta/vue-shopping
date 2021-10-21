@@ -6,7 +6,6 @@
             </div>
             <div class="order-item-mid">
                     <div class="order-item-total-cost">Total : &#8377;{{order.totalCost}}</div>
-                    <div class="order-item-date">04.10.2021</div>
                     <div class="order-item-total">Total items : {{order.productsList.length}}</div>
             </div>            
         </div>

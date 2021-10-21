@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import axios from "axios"
 export default {
     name : "Login",
     data(){
@@ -40,15 +41,9 @@ export default {
                 email : this.email,
                 password : this.password
             }
-            const res = await fetch(`http://localhost:3000/user/login`, {
-                method : "POST",
-                headers : {
-                     'Content-Type' : 'application/json'
-                },
-                body : JSON.stringify(loginBody)
-            });
+            const res = await axios.post(`http://localhost:3000/user/login`,loginBody);
 
-            const jsonRes = await res.json();
+            const jsonRes = await res.data;
             if(res.status===200) {
                 console.log(jsonRes.user);
                 this.email = "";
