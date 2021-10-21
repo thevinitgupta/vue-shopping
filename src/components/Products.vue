@@ -8,6 +8,7 @@
 
 <script>
 import Product from './Product.vue';
+import axios from "axios";
     export default {
   components: { 
       Product },
@@ -21,10 +22,10 @@ import Product from './Product.vue';
         },
         methods : {
             async fetchProducts(){
-                const res = await fetch(`http://localhost:3000/product/`);
+                const res = await axios.get(`http://localhost:3000/product/`);
                 console.log(res);
                 if(res.status==200) {
-                    const productJson = await res.json();
+                    const productJson = res.data;
                     console.log(productJson)
                     productJson.products.forEach((product)=>{
                         this.productList.push(product)
