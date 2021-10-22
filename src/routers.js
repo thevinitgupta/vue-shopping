@@ -21,6 +21,12 @@ const routes = [
         component : Login,
         path : "/login"
     },
+    //!same component different path - second one loads
+    // {
+    //     name : "Login",
+    //     component : Login,
+    //     path : "/loginto"
+    // },
     {
         name : "Profile",
         component : Profile,

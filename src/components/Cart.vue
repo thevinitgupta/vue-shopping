@@ -30,8 +30,16 @@ export default {
     data(){
         return {
             items : [],
-            totalCost : 0,
             cartEmpty : false
+        }
+    },
+    computed : {
+        totalCost : function(){
+            let tot = 0;
+            this.items.forEach((item)=>{
+                tot += item.cost * item.quantity;
+            })
+            return tot;
         }
     },
     methods : {
@@ -41,7 +49,6 @@ export default {
                     item.quantity += 1;
                 }
             })
-            this.countTotalCost();
             this.$store.dispatch('increaseItemCount', _id);
         },
         decreaseItemCount(_id){
@@ -52,15 +59,7 @@ export default {
                     }
                 }
             });
-            this.countTotalCost();
             this.$store.dispatch('decreaseItemCount', _id);
-        },
-        countTotalCost(){
-            this.totalCost = 0;
-            this.items.forEach((item)=>{
-                
-                this.totalCost += item.quantity * item.cost;
-            })
         },
         checkout(){
             console.log(this.items);
@@ -119,7 +118,6 @@ export default {
     },
     beforeMount(){
         this.$store.getters.cart.forEach((cartItem) => {
-            this.totalCost += cartItem.cost;
             cartItem.quantity = 1;
             this.items.push(cartItem);
         });
