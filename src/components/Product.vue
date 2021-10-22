@@ -2,7 +2,7 @@
     <div class="product">
         <div class="product-head">
         <div v-rainbow class="product-head-name">{{product.name}}</div>
-        <div v-rainbowBackgroud class="product-add-item" @click="addItemToCart">Add To Cart</div>
+        <div class="product-add-item" @click="addItemToCart">Add To Cart</div>
         </div>
         <div class="product-info">
             <div class="product-info-cost">&#8377;{{product.cost}}</div>
@@ -12,19 +12,19 @@
 </template>
 
 <script>
+import getRandomHex from "../mixins/randomHex"
 export default {
     name : "Product",
     props : {
         product : Object
     },
     directives:{
-        rainbow : function(el) {
-            
-            // console.log(randomColor)
-            // el.style.color = "#" + randomColor;
-        },
-        rainbowBackground : function(el){
-
+        rainbow : function(el,binding,vnode) {
+            console.log(el,binding,vnode)
+            const  randomColor = getRandomHex();
+            console.log(randomColor)
+            el.style.color = "#" + randomColor;
+            el.parentNode.childNodes[1].style.backgroundColor = "#"+randomColor;
         }
     },
     methods : {
