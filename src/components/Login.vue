@@ -4,7 +4,7 @@
         <div class="login-body">
                 <label for="email" class="login-label">Email</label>
                 <div id="invalid-email" v-show="emailError">Invalid Email</div>
-                <input type="email" name="email" class="login-input" @input="handleEmail" v-model="email">
+                <input type="email" name="email" class="login-input" v-model="email">
                 <label for="password" class="login-label">Password</label>
                 <input type="password" name="password" class="login-input" v-model="password">
                 <button type="button" id="login-btn" @click="login()">Login &#10162;</button> 
@@ -48,7 +48,7 @@ export default {
                 console.log(jsonRes.user);
                 this.email = "";
                 this.password = "";
-                this.$store.dispatch('updateUser', jsonRes.user)
+                this.$store.dispatch('updateUser', jsonRes.user);
                 this.$router.push({
                     name : "Home"
                 })
@@ -58,6 +58,12 @@ export default {
                 alert(jsonRes.message)
             }
         }
+    },
+    watch :{
+       email : function(oldVal,newVal) {
+           if(newVal!==oldVal)
+           this.handleEmail();
+       } 
     },
     mounted(){
         let user = this.$store.getters.user;
