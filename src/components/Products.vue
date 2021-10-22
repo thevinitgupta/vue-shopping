@@ -9,8 +9,9 @@
 import Product from './Product.vue';
 import axios from "axios";
     export default {
-  components: { 
-      Product },
+        components: { 
+            Product 
+        },
         name : "Products",
         data(){
             return {
