@@ -1,7 +1,7 @@
 <template>
-    <div @click="logout()" class="logout-btn">
-        Logout
-    </div>
+        <div @click="logout()" class="logout-btn">
+            Logout
+        </div>
     <div class="container">
         <Navbar/>
         <div class="profile">
@@ -80,6 +80,7 @@ export default {
 </script>
 
 <style scoped>
+
 .container {
     width: 80%;
     margin: 0 auto;
@@ -160,5 +161,16 @@ export default {
 }
 .logout-btn:hover{
     cursor: pointer;
+}
+@media only screen and (max-width : 780px){
+    .profile-details {
+        flex-direction: column;
+        justify-content: space-evenly;
+        height : 30vh;
+    }
+    .logout-btn{
+        left: -50px;
+        z-index: 15;
+    }
 }
 </style>

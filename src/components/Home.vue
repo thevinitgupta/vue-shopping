@@ -23,4 +23,9 @@ export default {
     width : 80%;
     margin: 2% auto;
 }
+@media only screen and (max-width : 540px){
+    .container {
+        width : 95%;
+    }
+}
 </style>

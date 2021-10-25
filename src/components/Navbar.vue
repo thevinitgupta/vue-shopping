@@ -125,6 +125,7 @@ export default {
             height: 80vh;
             z-index : 10;
             top : 40px;
+            left : -20px;
             background-color:#fff ;
         }
         .menu-item {
