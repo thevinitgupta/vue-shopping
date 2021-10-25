@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <div class="logo" @click="clickLogo()">Tablt</div>
+        <div class="logo"><router-link id="logo-link" to="/">Tablt</router-link> </div>
         <ul class="menu">
             <li class="menu-item"><router-link class="menu-link" to="/profile">Profile</router-link></li>
             <li class="menu-item"><router-link class="menu-link" to="/cart">Cart</router-link></li>
@@ -28,12 +28,16 @@ export default {
     align-items: center;
     }
     .logo {
+        flex: 0.25;
+    }
+    #logo-link{
         font-family: monospace;
         font-size : 2.5rem;
         font-weight: 600;
-        flex: 0.25;
+        text-decoration: none;
+        color: #1d1d1d;
     }
-    .logo:hover{
+    .logo-link:hover{
         cursor: pointer;
     }
     .menu {
