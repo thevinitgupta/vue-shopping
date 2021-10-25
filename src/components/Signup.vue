@@ -58,7 +58,7 @@ export default {
         }
     },
     mounted(){
-        let user = this.$store.getters.user;
+        let user = this.$store.state.user;
         let emptyUser = true;
         for(let prop in user){
             if(prop)

@@ -1,7 +1,7 @@
 <template>
     <div class="product">
-        <div class="product-head">
-        <div v-rainbow class="product-head-name">{{product.name}}</div>
+        <div v-rainbow class="product-head">
+        <div  class="product-head-name">{{product.name}}</div>
         <div class="product-add-item" @click="addItemToCart">Add To Cart</div>
         </div>
         <div class="product-info">
@@ -24,7 +24,7 @@ export default {
             const  randomColor = getRandomHex();
             console.log(randomColor)
             el.style.color = "#" + randomColor;
-            el.parentNode.childNodes[1].style.backgroundColor = "#"+randomColor;
+            el.childNodes[1].style.backgroundColor = "#"+randomColor;
         }
     },
     methods : {

@@ -48,7 +48,7 @@ export default {
                 console.log(jsonRes.user);
                 this.email = "";
                 this.password = "";
-                this.$store.dispatch('updateUser', jsonRes.user);
+                this.$store.dispatch('updateUser',jsonRes.user)
                 this.$router.push({
                     name : "Home"
                 })
@@ -66,7 +66,7 @@ export default {
        } 
     },
     mounted(){
-        let user = this.$store.getters.user;
+        let user = this.$store.state.user;
         let emptyUser = true;
         for(let prop in user){
             if(prop)
