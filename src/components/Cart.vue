@@ -1,5 +1,8 @@
 <template>
-    <h2 v-if="this.cartEmpty" >Cart Empty!</h2>
+    <div v-if="this.cartEmpty" class="cart-empty">
+        <h2  >Cart Empty!</h2>
+        <router-link to="/" class="cart-empty-btn">Start Ordering!</router-link>
+    </div>
     <div v-else class="cart">
         <h1>Your Cart : </h1>
         <div v-for="item in this.items" :key="item._id" class="cart-item">
@@ -135,11 +138,32 @@ body {
     margin: 0;
     height: 100vh;
 }
+.cart-empty {
+    margin-top : 120px;
+    width :80vw;
+    height : fit-content;
+    margin: 80px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h2 {
+    text-align: center;
+    font-size : 2.5rem;
+}
+.cart-empty-btn {
+    text-decoration: none;
+    color : #fff;
+    background-color: #047a7e;
+    padding : 15px 10px;
+    font-size: 1.5rem;
+}
 .cart{
     margin: 0;
     width: 70vw;
     height: 100%;
     margin: 0 auto;
+    max-width : 680px;
 }
     .cart-display {
         margin-top: 20vh;
@@ -228,8 +252,20 @@ body {
         background-color: #06aaaf;
         color: #fff;
         font-weight: 600;
+        padding : 14px 10px;
         border: none;
         border-radius: 4px;
-        padding: 5px;
+    }
+    .checkout-button:hover {
+        cursor : pointer;
+        color: #047a7e;
+        background-color: #fff;
+        border : 3px solid #047a7e;
+    }
+    @media only screen and (max-width : 560px){
+        .cart {
+            width : 90vw;
+            margin : 20px auto;
+        }
     }
 </style>
