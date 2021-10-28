@@ -81,4 +81,13 @@ export default {
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         font-size: 1.12rem;
     }
+    @media only screen and (min-width : 456px) and (max-width : 620px) {
+       .product-add-item {
+        padding: 3px 5px;
+        font-size: 1.1rem;
+        }
+        .product-info{
+        font-size: 1rem;
+        }
+    }
 </style>
