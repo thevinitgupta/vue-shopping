@@ -2,7 +2,7 @@
     <div class="product">
         <div v-rainbow class="product-head">
         <div  class="product-head-name">{{product.name}}</div>
-        <div class="product-add-item" @click="addItemToCart">Add To Cart</div>
+        <div class="product-add-item" @click="addItemToCart"><span class="add-text">Add To Cart</span><span class="add-icon">&#43;</span></div>
         </div>
         <div class="product-info">
             <div class="product-info-cost">&#8377;{{product.cost}}</div>
@@ -69,6 +69,9 @@ export default {
         color: #fff;
         transition: all 350ms ease-in-out;
     }
+    .add-icon {
+        display : none;
+    }
     .product-add-item:hover{
         cursor: pointer;
         transform: scale(1.12);
@@ -87,7 +90,23 @@ export default {
         font-size: 1.1rem;
         }
         .product-info{
-        font-size: 1rem;
+            font-size: 1rem;
+        }
+    }
+    @media only screen and (max-width : 456px) {
+        .product-add-item {
+            padding: 3px 10px;
+        }
+        .add-icon{
+            display: inherit;
+            font-weight: 900;
+            font-size: 1.7rem;
+        }
+        .add-text {
+            display : none;
+        }
+        .product-head-name{
+            font-size: 1.3rem;
         }
     }
 </style>
